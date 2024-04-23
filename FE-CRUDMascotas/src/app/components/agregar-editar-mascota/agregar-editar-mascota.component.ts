@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgregarEditarMascotaComponent implements OnInit {
 
-  constructor() { }
+  loading: boolean;
+
+  constructor() { 
+    this.loading = false;
+  }
 
   ngOnInit(): void {
   }
