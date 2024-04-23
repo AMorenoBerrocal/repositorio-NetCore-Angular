@@ -6,7 +6,8 @@ import { Mascota } from 'src/app/interfaces/mascota';
 
 
 const listMascotas: Mascota[] = [
-  { nombre: 'Ciro', edad:3, raza: 'Golden', color: 'Dorado', peso: 13 }
+  { nombre: 'Ciro', edad:3, raza: 'Golden', color: 'Dorado', peso: 13 },
+  { nombre: 'Spike', edad:5, raza: 'Chihuahua', color: 'Negro', peso: 4 }
 ];
 
 @Component({
@@ -15,7 +16,7 @@ const listMascotas: Mascota[] = [
   styleUrls: ['./listado-mascota.component.css']
 })
 export class ListadoMascotaComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nombre', 'edad', 'raza', 'color', 'peso'];
+  displayedColumns: string[] = ['nombre', 'edad', 'raza', 'color', 'peso', 'acciones'];
   dataSource = new MatTableDataSource<Mascota>(listMascotas);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -20,4 +20,23 @@ td, th {
 .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
-  }
+}
+
+.delete {
+    cursor: pointer;
+    color: #E15639;
+}
+
+.edit {
+    cursor: pointer;
+    color: #1878b0
+}
+
+.edit {
+    cursor: pointer;
+}
+
+.agregar {
+    font-size: 15px;
+    line-height: 25px;
+}
