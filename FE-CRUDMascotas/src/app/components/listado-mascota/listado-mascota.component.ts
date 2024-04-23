@@ -48,7 +48,6 @@ export class ListadoMascotaComponent implements OnInit, AfterViewInit {
       this._snackBar.open("La mascota fue eliminada con exito", '', {
         duration: 4000,
         horizontalPosition: 'right'
-        
       });
     }, 3000)
   }
