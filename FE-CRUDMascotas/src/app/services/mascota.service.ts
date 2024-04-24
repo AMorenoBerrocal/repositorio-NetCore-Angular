@@ -13,6 +13,7 @@ export class MascotaService {
 
   constructor(private http: HttpClient) { }
 
+  // Solicitud backend
   getMascotas(): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
