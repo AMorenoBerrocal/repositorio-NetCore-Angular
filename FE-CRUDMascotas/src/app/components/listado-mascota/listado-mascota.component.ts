@@ -63,15 +63,22 @@ export class ListadoMascotaComponent implements OnInit, AfterViewInit {
   //   })
   // }
 
-  eliminarMascota() {
+  eliminarMascota(id:number) {
     this.loading = true;
-    setTimeout(()=> {
-      this.loading = false;
+    // Al devolver un observable -> tenemos que suscribirnos
+    this._mascotaService.deleteMascota(id).subscribe(() => {
+      this.mensajeExito();
+      this.loading=false;
+      this.obtenerMascota();
+    });
+  }
+
+  mensajeExito() 
+    {
       this._snackBar.open("La mascota fue eliminada con exito", '', {
         duration: 4000,
         horizontalPosition: 'right'
       });
-    }, 3000)
-  }
+    }
 
 }
