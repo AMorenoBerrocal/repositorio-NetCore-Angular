@@ -10,6 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Añadimos una politica para permitir cualquier origen,
+// cualquier cabecera y cualquier metodo
+builder.Services.AddCors(options => options.AddPolicy("AllowWebapp",
+                                    builder => builder.AllowAnyOrigin()
+                                        .AllowAnyMethod()
+                                        .AllowAnyHeader()));
+
 // Add context
 builder.Services.AddDbContext<AplicationDbContext>(options =>
 {
@@ -24,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowWebapp");
 
 app.UseHttpsRedirection();
 
