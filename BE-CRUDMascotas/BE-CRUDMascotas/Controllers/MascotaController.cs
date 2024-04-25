@@ -62,5 +62,50 @@ namespace BE_CRUDMascotas.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> Post(Mascota mascota)
+        {
+            try
+            {
+                mascota.FechaCreacion = DateTime.Now;
+                _context.Add(mascota);
+                await _context.SaveChangesAsync();
+                // Cuando añadimos un nuevo objeto: nos devuelve el objeto que acabamos de crear en forma de url
+                return CreatedAtAction("Get", new { id = mascota.Id }, mascota);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Mascota mascota)
+        {
+            try {
+                if (id != mascota.Id)
+                {
+                    return BadRequest();
+                }
+                // _context.Update(mascota); -- Solo si modificamos el objeto entero
+
+                var mascotaItem = await _context.Mascotas.FindAsync(id);
+                if (mascotaItem == null)
+                {
+                    return NotFound();
+                }
+
+                mascotaItem.Nombre = mascota.Nombre;
+                mascotaItem.Edad = mascota.Edad;
+                mascotaItem.Peso = mascota.Peso;
+                mascotaItem.Raza = mascota.Raza;
+                mascotaItem.Color = mascota.Color;
+
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
