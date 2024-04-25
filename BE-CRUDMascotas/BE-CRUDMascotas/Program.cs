@@ -1,4 +1,5 @@
 using BE_CRUDMascotas.Models;
+using BE_CRUDMascotas.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,9 @@ builder.Services.AddDbContext<AplicationDbContext>(options =>
 
 // Automapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+// Añadimos servicios: utilizar el repositorio en el proyecto
+builder.Services.AddScoped<IMascotaRepository, MascotaRepository>();
 
 var app = builder.Build();
 
