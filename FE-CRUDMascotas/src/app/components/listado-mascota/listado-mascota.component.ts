@@ -5,6 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Mascota } from 'src/app/interfaces/mascota';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MascotaService } from 'src/app/services/mascota.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EliminarDialogoComponent } from '../eliminar-dialogo/eliminar-dialogo.component';
+
 
 @Component({
   selector: 'app-listado-mascota',
@@ -20,7 +23,8 @@ export class ListadoMascotaComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private _snackBar: MatSnackBar, 
-                private _mascotaService:MascotaService) {}
+                private _mascotaService:MascotaService,
+                private dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.obtenerMascota();
@@ -63,13 +67,18 @@ export class ListadoMascotaComponent implements OnInit, AfterViewInit {
   //   })
   // }
 
+
   eliminarMascota(id:number) {
-    this.loading = true;
-    // Al devolver un observable -> tenemos que suscribirnos
-    this._mascotaService.deleteMascota(id).subscribe(() => {
-      this.mensajeExito();
-      this.loading=false;
-      this.obtenerMascota();
+    let dialogRef = this.dialog.open(EliminarDialogoComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      result ??= false; // Asigna false a result si es null o undefined
+      if(result) {
+        this._mascotaService.deleteMascota(id).subscribe(() => {
+          this.mensajeExito();
+          this.loading = false;
+          this.obtenerMascota();
+        });
+      } 
     });
   }
 
